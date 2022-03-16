@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Async & Await</title>
+    <style>
+        .btn{
+            padding:10px 10px;
+            background-color: cadetblue;
+            color:#000;
+            margin:10px   0px 30px 30px ; 
+        } 
+        h1{
+            margin-left:30px;
+        }
+        thead{
+            margin:40px;
+        } 
+        td{
+            padding:20px;
+        }
+        th{
+            padding:10px;
+            border-bottom: 1px solid #000;
+        }
+    </style>
+</head>
+<body>
+    <h1>Async Await</h1>
+    <button type="button" class="btn" id="fetchuser">Get User Details</button>
+    <div id="tables">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Sr. No</th>
+            <th>UserName</td>
+            <th>Email Id</td> 
+            <th>Website</td>
+          </tr>
+        </thead>
+        <tbody id="tbody">
+         
+        </tbody>
+      </table>
+    </div>
+  
+    <script>
+        let fetchuser = document.getElementById("fetchuser");
+        fetchuser.addEventListener("click", (e) => {
+        userData();
+        });
+        async function userData() {
+        const URL =await "https://jsonplaceholder.typicode.com/users";
+
+        fetch(URL)
+            .then((response) => response.json())
+
+            .then((data) => {
+            let html = "";
+            data.forEach((element) => {
+                let tbody = document.getElementById("tbody");
+                html += ` <tr>
+                            <td>${element.id}</td>
+                            <td>${element.name}</td>
+                            <td>${element.email}</td> 
+                            <td>${element.website}</td>
+                        </tr>`;
+                tbody.innerHTML = html;
+            });
+            });
+        }
+
+    </script>
+</body>
+</html>
